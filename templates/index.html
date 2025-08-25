@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Face Attendance System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Poppins, sans-serif;
+      background: radial-gradient(circle at center, #103865, #091432 80%);
+      animation: bgPulse 5s ease-in-out infinite;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    header {
+      color: #fff;
+      padding: 10px;
+    }
+
+
+    /******************************navigation bar*********************************/
+    .row1 {
+      background-color: rgba(10, 61, 130, 0.5);
+      top: 0;
+      position: relative;
+      height: 80px;
+      margin-bottom: 30px;
+      border-radius: 20px;
+      padding: 0 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo a {
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 35px;
+    }
+
+    .nav {
+      float: right;
+    }
+
+    nav ul {
+      list-style: none;
+      margin-top: 5px;
+    }
+
+    nav ul li {
+      display: inline;
+      margin-right: 20px;
+    }
+
+    nav ul li a {
+      font-size: 18px;
+      text-decoration: none;
+      color: #fff;
+      position: relative;
+      transition: transform 0.3s ease-out;
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: #6aa9e9;
+      transition: width 0.4s ease;
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    nav ul li a:hover {
+      transform: scale(1.1);
+    }
+
+    /**********************************************************************************************************************/
+
+
+    /**************************main section****************************************/
+    .main {
+      display: flex;
+      flex-direction: row;
+      padding-left: 50px;
+      flex-wrap: wrap;
+    }
+
+    .main h1 {
+      font-size: 70px;
+      color: #ebe9e9;
+    }
+
+    .main p {
+      font-size: 17px;
+      color: aliceblue;
+      line-height: 30px;
+    }
+
+    .main_txt {
+      flex: 1;
+      /* Take remaining space */
+      padding: 20px;
+      /* Adjust padding as needed*/
+    }
+
+    .image_box {
+      flex: 1;
+      text-align: right;
+      /*Align image to the right*/
+    }
+
+    .image_box img {
+      max-width: 100%;
+      /* Ensure image doesn't exceed container width */
+      height: auto;
+      /* Maintain aspect ratio */
+      border-radius: 10px;
+    }
+
+    /**************************************************************************************/
+
+
+    /* **************************about******************************************** */
+
+    .about_main {
+      height: 600px;
+      /* or adjust based on your design */
+      overflow: auto;
+      padding: 70px 50px;
+      display: flex;
+      flex-direction: row;
+      align-items: start;
+      gap: 40px;
+      flex-wrap: nowrap;
+      /* ensure items don’t wrap */
+      background-color: rgba(255, 255, 255, 0.8);
+      /* important for gradient continuity */
+    }
+
+    .about_main .main_txt {
+      flex: 1;
+      overflow-y: auto;
+      max-height: 100%;
+      padding-right: 20px;
+    }
+
+    .about_main .image_box {
+      flex: 1;
+      position: relative;
+      text-align: center;
+    }
+
+    .about_main .image_box img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+
+    .about_main .main_txt h1 {
+      position: static;
+      font-size: 50px;
+      color: #091432;
+      margin-bottom: 10px;
+    }
+
+    .about_main .main_txt p {
+      position: static;
+      font-size: 17px;
+      line-height: 1.8;
+      color: #333;
+      text-align: justify;
+    }
+
+    .about_main .main_txt::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .about_main .main_txt::-webkit-scrollbar-thumb {
+      background: transparent
+    }
+
+
+    .more-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease-out;
+    }
+
+    .more-content.visible {
+      max-height: 800px;
+      /* Adjust as needed to fit the content */
+      text-align: left;
+    }
+
+    /**********************************************************************************************/
+
+    /*******************************button desighn**********************************************/
+    .read-more-btn {
+      text-decoration: none;
+      padding: 17px 40px;
+      border-radius: 50px;
+      cursor: pointer;
+      border: 0;
+      background-color: rgba(255, 255, 255, 0.8);
+      box-shadow: rgb(59, 59, 59) 2px 2px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-size: 15px;
+      transition: all 0.5s ease;
+      color: rgb(0, 0, 0);
+    }
+
+    .read-more-btn:hover {
+      letter-spacing: 4px;
+      background-color: rgb(10, 88, 119);
+      ;
+      color: hsl(0, 0%, 100%);
+      box-shadow: rgb(29, 29, 29) 3px 5px 10px 5px;
+    }
+
+    .read-more-btn:active {
+      letter-spacing: 3px;
+      background-color: hsl(24, 191, 220);
+      color: hsl(0, 0%, 100%);
+      box-shadow: rgb(19, 20, 20) 0px 0px 4px 0px;
+      transform: translateY(10px);
+      transition: 100ms;
+    }
+
+    /******************************************************************************************/
+
+
+    /* **************************working******************************************** */
+    .how-facelog-works {
+      background-color: #052659;
+      color: #fff;
+      padding: 3rem 1.5rem;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+    }
+
+    .how-title h2 {
+      color: #fff;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .how-title span {
+      color: #12bcff;
+    }
+
+    .how-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .how-card {
+      background-color: #0a3d82;
+      border-radius: 12px;
+      padding: 2rem 1.5rem;
+      width: 280px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .how-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .how-card img {
+      width: 50px;
+      margin-bottom: 1rem;
+    }
+
+    .how-card h3 {
+      color: #7dd3fc;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .how-card p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #e0f2fe;
+    }
+
+    i {
+      color: #fff;
+    }
+
+
+    /*********************************FAQ section***************************************/
+
+    .faq-section {
+      padding: 60px 20px;
+      background-color: #052659;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .faq-title {
+      text-align: center;
+      font-size: 2.4rem;
+      font-weight: bold;
+      margin-bottom: 40px;
+    }
+
+    .faq-title span {
+      color: #84C8FC;
+    }
+
+    .faq-container {
+      max-width: 900px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .faq-item {
+      background: linear-gradient(180deg, #084d94, #052659);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      padding: 20px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #84C8FC;
+      cursor: pointer;
+      outline: none;
+      position: relative;
+    }
+
+    .faq-question::after {
+      content: '+';
+      position: absolute;
+      right: 20px;
+      font-size: 1.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-question.active::after {
+      content: '-';
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      background-color: rgba(255, 255, 255, 0.8);
+      transition: max-height 0.4s ease;
+      padding: 0 20px;
+    }
+
+    .faq-answer p {
+      padding: 15px 0;
+      color: rgb(10, 10, 10);
+      line-height: 1.6;
+    }
+
+    /***************************************loader**********************************************/
+    .spinner-border {
+      animation: spinner-grow 0.75s linear infinite;
+    }
+
+    @keyframes spinner-grow {
+      0% {
+        transform: scale(0);
+      }
+
+      100% {
+        transform: scale(1.2);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="row1">
+      <div class="logo">
+        <a href="index.html"><b>FaceLog: AI Attendance Tracker</b></a>
+      </div>
+      <div class="nav">
+        <nav>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#Services">Services</a></li>
+            <li><a href="/login" class="btn btn-outline-primary" style="padding: 6px 16px; margin-left: 10px;">Admin</a>
+            </li>
+          </ul>
+
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section id="home" style="color: #f0f0f0; padding: 30px 20px;">
+    <div>
+      <h1 style="font-size: 3em; font-weight:bold; text-align:center; color:#84C8FC;">Welcome to FaceLog</h1>
+      <h5 style="font-weight:bold; text-align:center; color:rgb(0, 127, 239)">AI-Based Face Recognition Attendance
+        Tracker</h5><br>
+    </div>
+    <div class="main">
+      <div class="main_txt">
+        <p>
+          FaceLog is an intelligent attendance management system powered by artificial intelligence and facial
+          recognition technology. Designed to automate the traditional attendance process, FaceLog accurately detects
+          and verifies student identities using face recognition, eliminating the need for manual entry or ID cards.
+          With seamless real-time detection, secure data storage in MongoDB, and a responsive dashboard for insights,
+          FaceLog is a modern solution for educational institutions seeking efficiency, reliability, and smart analytics
+          in classroom management.
+
+          Built using Python, OpenCV, and Flask, FaceLog leverages state-of-the-art AI models to detect and match faces
+          against a database of enrolled students. The system supports live webcam capture, batch face encoding, and
+          automated CSV report generation, making it ideal for both small and large classroom setups.
+
+          The user-friendly web interface allows administrators and faculty to monitor attendance records, view student
+          details, and generate attendance reports on demand. Each face scan is logged with a timestamp and subject,
+          ensuring traceability and eliminating proxy attendance.
+
+          FaceLog is also highly customizable and scalable.
+        </p><br><br>
+        <a href="#about" class="read-more-btn">Get Started</a>
+      </div>
+      <div class="image_box" style="padding-right: 80px;">
+        <img src="https://i.pinimg.com/originals/05/ec/48/05ec4876e7d36fe31716557ddc2bd7ee.gif"
+          alt="Face recognition animation">
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="about_main">
+      <div class="image_box" style="position: relative;">
+        <img src="https://www.lystloc.com/blog/wp-content/uploads/2023/12/blog-%E2%80%93-462-1.webp"
+          alt="About Computer Vision">
+      </div>
+      <div class="main_txt">
+        <h1>About <span style="color: #091432;">FaceLog</span></h1>
+        <p>The FacLog Attendance System is a smart and efficient facial recognition-based solution designed to automate
+          the process of student attendance. Traditional methods of roll calls or manual sign-ins are time-consuming and
+          prone to errors or even misuse. FacLog addresses these challenges by leveraging modern computer vision
+          technology and artificial intelligence to recognize student faces in real time using a webcam, and accurately
+          log their attendance.</p>
+        <div class="more-content">
+          <p>FacLog allows each student to be registered with a photo and a unique registration number. During a
+            session, the system captures faces from the live camera feed and compares them against the registered
+            database. If a match is found, it marks the student as present for that subject and records the time and
+            date. All attendance information is stored securely in a MongoDB database, and a CSV file is also generated
+            for administrative convenience.
+            The project includes a subject-wise tracking system, meaning attendance is managed independently for each
+            course. Additionally, the student database keeps count of how many sessions each student has attended per
+            subject, while also recording the total number of sessions conducted. This makes it easy for faculty and
+            administrators to monitor both overall and individual participation.
+            FacLog offers a simple yet powerful web interface built using Flask. Users can navigate through options such
+            as recognizing students, adding new faces, and viewing records. The interface is user-friendly and designed
+            to minimize manual intervention while maintaining accuracy and transparency.
+          </p>
+        </div>
+        <button class="read-more-btn read-more-about-btn">Read More</button>
+
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+            const readMoreBtn = document.querySelector(".read-more-about-btn");
+            const moreContent = document.querySelector('.more-content');
+
+            readMoreBtn.addEventListener('click', function () {
+              moreContent.classList.toggle('visible');
+              readMoreBtn.textContent = moreContent.classList.contains('visible') ? 'Read Less' : 'Read More';
+            });
+          });
+        </script>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="how-facelog-works">
+    <div class="how-title">
+      <h2>How <span>FaceLog</span> Works</h2>
+    </div>
+    <div style="width: 600px; height: auto; margin: auto;">
+      <img
+        src="https://empmonitor.com/blog/wp-content/uploads/2024/11/How-Does-a-Facial-Recognition-Attendance-System-Work-1536x864.webp"
+        alt="Working Image" style="width: 100%; height: auto; border-radius: 10px;" />
+    </div></br>
+
+    <div class="how-container">
+      <div class="how-card">
+        <h3><i class="fas fa-bolt"></i></h3>
+        <h3>Blazing-Fast & Precise</h3>
+        <p>AI-powered facial recognition delivers lightning-fast results with high accuracy.</p>
+      </div>
+      <div class="how-card">
+        <h3><i class="fas fa-user-check"></i></h3>
+        <h3>Contactless Identification</h3>
+        <p>Touchless attendance detection using real-time webcam scanning and recognition.</p>
+      </div>
+      <div class="how-card">
+        <h3><i class="fas fa-user-plus"></i></i></h3>
+        <h3>Quick Enrollment</h3>
+        <p>Instantly register new students with face and registration number in seconds.</p>
+      </div>
+      <div class="how-card">
+        <h3><i class="fas fa-calendar-check"></i></i></h3>
+        <h3>Automated Attendance</h3>
+        <p>Automatically mark and record attendance with subject, date, and timestamp.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="Services" style="background: #fff; padding: 60px 30px;">
+    <h2 style="text-align: center; font-size: 2.5rem; font-weight: bold; margin-bottom: 40px;">
+      Attendance <span style="color: #0b52cc;">Tracking</span>
+    </h2>
+    <section style="background: #091432; padding: 60px 20px;border-radius: 20px;">
+      <h2 style="text-align: center; font-size: 2.2rem; font-weight: bold; color: #ffffff; margin-bottom: 40px;">
+        Quick Steps to Begin Attendance
+      </h2>
+
+      <div style="max-width: 1100px; margin: auto; display: flex; flex-wrap: wrap; gap: 30px; justify-content: center;">
+
+        <!-- Step 1 Card -->
+        <div
+          style="flex: 1; min-width: 300px;height:150px; background: linear-gradient(180deg, #084d94, #052659); padding: 20px; border-radius: 15px; color: #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.3);">
+          <h3 style="font-size: 1.4rem; margin-bottom: 10px; color: #84C8FC;"><i class="fas fa-book-open"></i> Step 1:
+            Select Subject</h3>
+          <p style="line-height: 1.5;font-size: 1rem;">
+            Choose a subject from the dropdown menu provided above. This ensures that attendance is logged specifically
+            for the selected course.
+          </p>
+        </div>
+
+        <!-- Step 2 Card -->
+        <div
+          style="flex: 1; min-width: 300px;height: 150px; background: linear-gradient(180deg, #084d94, #052659); padding: 20px; border-radius: 15px; color: #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.3);">
+          <h3 style="font-size: 1.4rem; margin-bottom: 10px; color: #84C8FC;"><i class="fas fa-camera"></i> Step 2:
+            Start Face Recognition</h3>
+          <p style="line-height: 1.5; font-size: 1rem;">
+            Click the <strong>“Start Face Recognition”</strong> button to launch the webcam. The system will scan and
+            mark students present automatically.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div
+        style="max-width: 1100px;padding-top: 60px; margin: auto; display: flex; flex-wrap: wrap; gap: 40px; align-items: center; justify-content: space-between;">
+
+        <!-- Form Card -->
+        <div
+          style="flex:1; min-width:320px; background: linear-gradient(180deg, #033f8c, #005cba); border-radius:20px; padding:60px; color:white; box-shadow:0 10px 30px rgba(0,0,0,0.2);">
+          <form action="/recognize" method="POST" style="display:flex; flex-direction:column; gap:20px;">
+            <label for="subject" style="font-size:1.1rem; font-weight:600;">Select Subject Code</label>
+            <select id="subject" name="subject_code"
+              style="padding:12px; border:none; border-radius:10px; font-size:1rem;" required>
+              <option value="">-- Choose a Subject Code --</option>
+              <option value="WT101">WT101</option>
+              <option value="MAT102">MAT102</option>
+              <option value="AI103">AI103</option>
+              <option value="ML104">ML104</option>
+              <option value="CC105">CC105</option>
+              <option value="DA106">DA106</option>
+            </select>
+            <label for="subject_name" style="font-size:1.1rem; font-weight:600;">Select Subject Name</label>
+            <select id="subject_name" name="subject_name"
+              style="padding:12px; border:none; border-radius:10px; font-size:1rem;" required>
+              <option value="">-- Choose a Subject Name --</option>
+              <option value="Web Technology">Web Technology</option>
+              <option value="Mathematics">Mathematics</option>
+              <option value="Artificial Intelligence">Artificial Intelligence</option>
+              <option value="Machine Learning">Machine Learning</option>
+              <option value="Cloud Computing">Cloud Computing</option>
+              <option value="Data Analytics">Data Analytics</option>
+            </select>
+
+            <button type="submit"
+              style="margin-top:20px; padding:14px 0; background:#fff; color:#005cba; font-size:1.1rem; font-weight:bold; border:none; border-radius:10px; cursor:pointer; transition:0.3s;">
+              Start Face Recognition
+            </button>
+          </form>
+        </div>
+
+        <div id="customAlert" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+  background:rgba(0,0,0,0.5); z-index:9999; justify-content:center; align-items:center;">
+          <div style="background:white; padding:30px 40px; border-radius:10px; text-align:center; max-width:400px;">
+            <h2 style="color:#0c4680; margin-bottom:15px;">FaceLog</h2>
+            <p id="alertMessage" style="font-size:1.1rem; color:#333;"></p>
+            <button onclick="closeAlert()" style="margin-top:20px; padding:10px 20px; border:none; background:#022d58;
+      color:white; font-weight:bold; border-radius:5px; cursor:pointer;">OK</button>
+          </div>
+        </div>
+
+        <script>
+          function showAlert(message) {
+            document.getElementById("alertMessage").textContent = message;
+            document.getElementById("customAlert").style.display = "flex";
+          }
+
+          function closeAlert() {
+            document.getElementById("customAlert").style.display = "none";
+          }
+
+          document.querySelector("form").addEventListener("submit", function (e) {
+            const code = document.getElementById("subject").value;
+            const name = document.getElementById("subject_name").value;
+
+            const validPairs = {
+              "WT101": "Web Technology",
+              "MAT102": "Mathematics",
+              "AI103": "Artificial Intelligence",
+              "ML104": "Machine Learning",
+              "CC105": "Cloud Computing",
+              "DA106": "Data Analytics"
+            };
+
+            if (validPairs[code] !== name) {
+              e.preventDefault(); // Stop form submission
+              showAlert("Please select a valid Subject Name for the selected Subject Code.");
+            }
+          });
+        </script>
+
+
+        <!-- Image Grid -->
+        <div style="flex:1; min-width:300px; padding-left:30px;height:400px;">
+          <img src="https://empmonitor.com/wp-content/uploads/2024/07/img-faq-600x443.webp" alt="Face recognition"
+            style="width:100%; border-radius:15px; object-fit:cover;">
+        </div>
+        <p
+          style="margin-top: 30px; background-color: rgba(255, 255, 255, 0.1); color: #e0f2fe; padding: 15px 20px; border-radius: 10px; font-size: 0.95rem; line-height: 1.6;">
+          <i class="fas fa-info-circle" style="color: #84C8FC; margin-right: 8px;"></i>
+          <span style="color:red;">Note:</span> For best results, ensure proper lighting, sit directly facing the
+          camera, and note that only registered students will be recognized. You can press <strong>'X'</strong> at any
+          time to stop the recognition process.
+        </p>
+
+    </section>
+
+    </div>
+
+  </section>
+
+
+
+  <section id="faq" class="faq-section">
+    <h2 class="faq-title">Frequently Asked <span>Questions</span></h2>
+
+    <div class="faq-container">
+      <div class="faq-item">
+        <button class="faq-question">How does FaceLog mark attendance?</button>
+        <div class="faq-answer">
+          <p>FaceLog uses AI-powered facial recognition through a webcam to identify registered students and
+            automatically mark their attendance with date, time, and subject.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">Is it safe and secure?</button>
+        <div class="faq-answer">
+          <p>Yes, all face data and attendance logs are securely stored in MongoDB with restricted access. No biometric
+            data is shared externally.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">What if the face is not recognized?</button>
+        <div class="faq-answer">
+          <p>If a student's face is not recognized, the system will not mark attendance. The student may be prompted to
+            re-register or check lighting conditions.</p>
+        </div>
+      </div>
+
+
+      <div class="faq-item">
+        <button class="faq-question">Does FaceLog work in real-time?</button>
+        <div class="faq-answer">
+          <p>Yes. It uses a live webcam feed to scan and match faces in real time, providing instant attendance marking
+            with high accuracy.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.querySelectorAll('.faq-question').forEach(button => {
+      button.addEventListener('click', () => {
+        const allButtons = document.querySelectorAll('.faq-question');
+        const allAnswers = document.querySelectorAll('.faq-answer');
+
+        allButtons.forEach(btn => btn.classList.remove('active'));
+        allAnswers.forEach(ans => ans.style.maxHeight = null);
+
+        // If the clicked button was not already active, open it
+        const answer = button.nextElementSibling;
+        if (!button.classList.contains('active')) {
+          button.classList.add('active');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+  </script>
+
+  <footer style="background-color: #091432; color: #ffffff; padding: 40px 20px; font-family: 'Poppins', sans-serif;">
+    <div
+      style="max-width: 1100px; margin: auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px;">
+
+      <!-- Address -->
+      <div style="flex: 1; min-width: 250px;">
+        <h5 style="color: #84C8FC; font-weight: 600;">ADDRESS</h5>
+        <p style="margin-top: 10px; line-height: 1.6;">
+          Manipal Institute of Technology,<br> Manipal, Udupi
+        </p>
+      </div>
+
+      <!-- Phone -->
+      <div style="flex: 1; min-width: 250px;">
+        <h5 style="color: #84C8FC; font-weight: 600;">PHONE</h5>
+        <p style="margin-top: 10px; line-height: 1.6;">
+          +91-7760990109<br> +91-9352309860<br> (08254) 000000
+        </p>
+      </div>
+
+      <!-- Email -->
+      <div style="flex: 1; min-width: 250px;">
+        <h5 style="color: #84C8FC; font-weight: 600;">EMAIL</h5>
+        <p style="margin-top: 10px;">puneeth.mitmpl2024@learner.manipal.edu</p>
+        <p style="margin-top: 10px;">prajna.mitmpl2024@learner.manipal.edu</p>
+      </div>
+    </div>
+
+    <!-- Copyright and Socials -->
+    <div style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center;">
+      <p style="margin: 10px 0;">FaceLog &copy; 2025. All Rights Reserved.</p>
+      <div style="margin-top: 10px;">
+        <a href="#" style="color: #84C8FC; margin: 0 10px;"><i class='bx bxl-facebook'></i></a>
+        <a href="#" style="color: #84C8FC; margin: 0 10px;"><i class='bx bxl-twitter'></i></a>
+        <a href="#" style="color: #84C8FC; margin: 0 10px;"><i class='bx bxl-instagram'></i></a>
+        <a href="#" style="color: #84C8FC; margin: 0 10px;"><i class='bx bxl-linkedin'></i></a>
+      </div>
+    </div>
+  </footer>
+  <div id="loader" style="display: none;">
+    <div style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  ">
+      <div class="spinner-border text-light" role="status" style="width: 4rem; height: 4rem;">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.getElementById("recognizeForm").addEventListener("submit", function () {
+      document.getElementById("loader").style.display = "block";
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

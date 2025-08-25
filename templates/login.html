@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login - FaceLog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('https://i.pinimg.com/1200x/0c/e0/22/0ce022a0ea75fcacdf1614d43353eac5.jpg') no-repeat center/cover;
+      font-family: 'Poppins', sans-serif;
+      color: #5fb2ff;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-box {
+      background: rgba(9, 20, 50, 0.85);
+      border: 2px solid #1e90ff;
+      padding: 50px 40px;
+      border-radius: 15px;
+      width: 360px;
+      text-align: center;
+      box-shadow: 0 0 35px rgba(0, 191, 255, 0.3);
+      position: relative;
+    }
+
+
+    .login-box h2 {
+      margin-bottom: 30px;
+      font-size: 24px;
+      color: #84C8FC;
+      letter-spacing: 1.5px;
+    }
+
+    .input-box {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .input-box input {
+      width: 80%;
+      padding: 12px 15px 12px 45px;
+      border: 1px solid #5fb2ff;
+      background: transparent;
+      color: #ffffff;
+      border-radius: 8px;
+      font-size: 1rem;
+      outline: none;
+      transition: 0.3s ease;
+    }
+
+    .input-box input::placeholder {
+      color: #87c9ffb9;
+    }
+
+    .input-box i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #5fb2ff;
+      font-size: 1rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      background: #5fb2ff;
+      color: #091432;
+      font-weight: bold;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      letter-spacing: 0.5px;
+    }
+
+    button:hover {
+      background: #4a9ae2;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-box">
+    <h2>ADMIN LOGIN</h2>
+    <form action="/login" method="POST">
+      <div class="input-box">
+        <i class="fas fa-user"></i>
+        <input type="text" name="username" placeholder="Username" required />
+        {% if error.username %}
+        <p style="color: red; font-size: 0.85rem; margin: 5px 0 0 0; text-align: left; padding-left: 45px;">{{
+          error.username }}</p>
+        {% endif %}
+      </div>
+      <div class="input-box">
+        <i class="fas fa-lock"></i>
+        <input type="password" name="password" placeholder="Password" required />
+        {% if error.password %}
+        <p style="color: red; font-size: 0.85rem; margin: 5px 0 0 0; text-align: left; padding-left: 45px;">{{
+          error.password }}</p>
+        {% endif %}
+      </div>
+      <button type="submit">Login</button><br><br>
+      <a href="/" style="text-decoration: none;">Back Home</a>
+    </form>
+  </div>
+</body>
+
+</html>
